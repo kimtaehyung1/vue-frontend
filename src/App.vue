@@ -1,16 +1,8 @@
 <template>
-  <Main />
+  <routerView />
 </template>
 
-<script>
-import Main from "@/views/layout/Main.vue";
-
-export default {
-  components: {
-    Main,
-  },
-};
-</script>
+<script setup></script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

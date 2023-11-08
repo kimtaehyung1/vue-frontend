@@ -1,19 +1,31 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "@/views/Home.vue";
 import Sport from "@/views/Sport.vue";
+import Blog from "@/views/Blog.vue";
+import Layout from "@/views/Layout.vue";
+import Neighbor from "@/components/blog/Neighbor.vue";
 import SportNews from "@/components/sport/SportNews.vue";
-import MemberShip from "@/views/MemberShip.vue";
+import MemberShip from "@/components/member/MemberShip.vue";
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home,
+    name: "Layout",
+    component: Layout,
   },
   {
-    path: "/sport",
+    path: "/sport/:ctgy",
     name: "sport",
     component: Sport,
+  },
+  {
+    path: "/blog/:ctgy",
+    name: "blog",
+    component: Blog,
+  },
+  {
+    path: "/neighbor",
+    name: "neighbor",
+    component: Neighbor,
   },
   {
     path: "/membership",

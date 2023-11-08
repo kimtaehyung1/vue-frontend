@@ -1,4 +1,7 @@
 <template>
+  <Header :ctgy="route.params.ctgy"></Header>
+  <SubTab />
+  <SportTab />
   <div
     style="
       margin-top: 5px;
@@ -46,7 +49,7 @@
   </div>
 
   <!-- <SportNews v-model="sportRef" /> -->
-  <Footer />
+  <Footer></Footer>
 </template>
 
 <style>
@@ -67,8 +70,10 @@ import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { sportStore } from "@/stores/sport";
 import { storeToRefs } from "pinia";
-
-import Footer from "@/views/layout/Footer.vue";
+import Footer from "@/views/Footer.vue";
+import SportTab from "../components/tab/SportTab.vue";
+import Header from "@/views/Header.vue";
+import SubTab from "@/components/tab/SubTab.vue";
 
 const { dtlSportNews } = sportStore();
 const { headlineNews } = storeToRefs(sportStore());
@@ -78,8 +83,6 @@ const route = useRoute();
 const date = ref();
 const beforeMinute = ref();
 const cDate = new Date();
-const sportRef = ref(false);
-
 const pDate = new Date(cDate.getTime() - 1000000);
 const beetweenTime = ref(cDate.getTime() - pDate.getTime());
 
@@ -93,7 +96,6 @@ onMounted(() => {
 });
 
 const more = (ele) => {
-  console.log("11");
   router.push("sportNews");
   dtlSportNews(ele);
 };

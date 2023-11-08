@@ -50,6 +50,7 @@
       {{ sport.reportNm }} 기자({{ sport.reportEmil }})</v-label
     >
   </div>
+  <Footer />
 </template>
 
 <style>
@@ -66,6 +67,7 @@
 import { ref, onMounted, reactive, computed } from "vue";
 import _ from "lodash";
 import { sportStore } from "@/stores/sport";
+import Footer from "@/views/Footer.vue";
 import { storeToRefs } from "pinia";
 
 const { dtlSportNews } = sportStore();

@@ -17,12 +17,18 @@ dependencies:
   pinia:
     specifier: ^2.1.7
     version: 2.1.7(vue@3.3.4)
+  pinia-plugin-persistedstate:
+    specifier: ^3.2.0
+    version: 3.2.0(pinia@2.1.7)
   vue:
     specifier: ^3.3.4
     version: 3.3.4
   vue-router:
     specifier: ^4.2.4
     version: 4.2.5(vue@3.3.4)
+  vue-session:
+    specifier: ^1.0.0
+    version: 1.0.0
   vue-template-compiler:
     specifier: 2.7.14
     version: 2.7.14
@@ -5645,6 +5651,14 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
+  /pinia-plugin-persistedstate@3.2.0(pinia@2.1.7):
+    resolution: {integrity: sha512-tZbNGf2vjAQcIm7alK40sE51Qu/m9oWr+rEgNm/2AWr1huFxj72CjvpQcIQzMknDBJEkQznCLAGtJTIcLKrKdw==}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.1.7(vue@3.3.4)
+    dev: false
+
   /pinia@2.1.7(vue@3.3.4):
     resolution: {integrity: sha512-+C2AHFtcFqjPih0zpYuvof37SFxMQ7OEG2zV9jRI12i9BOy3YQVAHwdKtyyc8pDcDyIc33WCIsZaCFWU7WWxGQ==}
     peerDependencies:
@@ -7223,6 +7237,10 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.5.0
       vue: 3.3.4
+    dev: false
+
+  /vue-session@1.0.0:
+    resolution: {integrity: sha512-Ep9lRKGgCZdcGV3In3R3zoSp5Wr+hlcIc8WJ9BG+QKzibwaFZnnvp9HBVdd+dU8d6HGLSi5sWywDmd5MkrkfoQ==}
     dev: false
 
   /vue-style-loader@4.1.3:
