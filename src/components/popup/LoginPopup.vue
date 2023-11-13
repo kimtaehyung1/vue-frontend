@@ -1,11 +1,11 @@
 <template>
-  <v-dialog width="500" persistent>
+  <v-dialog width="550" persistent>
     <v-card>
       <v-form @submit.prevent="submit" ref="form">
         <v-card-title>
           <span class="text-h5" style="text-align: center">로그인</span>
         </v-card-title>
-        <v-card-text>
+        <v-card-text style="padding: 0px">
           <v-container>
             <v-row>
               <!-- 아이디 -->
@@ -17,6 +17,7 @@
                   label="아이디"
                   required
                   v-model="userId"
+                  :rules="userId_rules"
                 ></v-text-field>
               </v-col>
               <!-- 비밀번호 -->
@@ -25,8 +26,11 @@
                   <v-icon icon="mdi-lock"></v-icon>
                 </div>
                 <v-text-field
+                  type="password"
                   v-model="password"
                   label="비밀번호"
+                  autocomplete="on"
+                  :rules="user_pw_rules"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -87,12 +91,16 @@ import { storeToRefs } from "pinia";
 const { memberLogin } = sportStore();
 
 const router = useRouter();
-const userId = ref("");
-const password = ref("");
+const userId = ref();
+const password = ref();
+const form = ref();
 
 const props = defineProps({
   loginRef: Boolean,
 });
+
+const userId_rules = ref([(v) => !!v || "아이디는 필수 입력사항입니다."]);
+const user_pw_rules = ref([(v) => !!v || "패스워드는 필수 입력사항입니다."]);
 
 const submit = () => {
   let params = {
@@ -100,8 +108,20 @@ const submit = () => {
     password: password.value,
   };
 
-  memberLogin(params);
-  close();
+  const validate = form.value;
+
+  console.log(validate);
+
+  if (validate.isValid) {
+    memberLogin(params);
+    initCondition();
+    close();
+  }
+};
+
+const initCondition = () => {
+  userId.value = "";
+  password.value = "";
 };
 
 const membership = () => {

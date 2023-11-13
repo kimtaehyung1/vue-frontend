@@ -106,7 +106,6 @@
                 <v-btn>
                   <span>내국인</span>
                 </v-btn>
-
                 <v-btn>
                   <span>외국인</span>
                 </v-btn>
@@ -185,11 +184,6 @@ const duplicate = ref(false);
 const custom = ref(false);
 const result = ref();
 
-const userId_rules = ref([
-  (v) => !!v || "아이디는 필수 입력사항입니다.",
-  (v) => /^[a-zA-Z0-9]*$/.test(v) || "아이디는 영문+숫자만 입력 가능합니다.",
-  (v) => !(v && v.length >= 15) || "아이디는 15자 이상 입력할 수 없습니다.",
-]);
 const checkDuplicate = (v) => {
   if (!duplicate.value) {
     axios
@@ -211,6 +205,12 @@ const checkDuplicate = (v) => {
       });
   }
 };
+
+const userId_rules = ref([
+  (v) => !!v || "아이디는 필수 입력사항입니다.",
+  (v) => /^[a-zA-Z0-9]*$/.test(v) || "아이디는 영문+숫자만 입력 가능합니다.",
+  (v) => !(v && v.length >= 15) || "아이디는 15자 이상 입력할 수 없습니다.",
+]);
 
 const user_pw_rules = ref([
   (v) =>

@@ -20,13 +20,14 @@
         </v-btn>
       </div>
 
-      <v-btn icon>
+      <v-btn icon @click="myBlogDialog">
         <v-icon>mdi-alpha-m-box</v-icon>
       </v-btn>
       <br /><br />
     </v-toolbar>
   </div>
   <LoginPopup v-model="loginRef" @onClose="onClose" />
+  <MyBlog v-model="myBlogRef" @onClose="onClose" />
 </template>
 
 <style>
@@ -41,10 +42,12 @@ import { useRouter } from "vue-router";
 import { sportStore } from "@/stores/sport";
 import { storeToRefs } from "pinia";
 import LoginPopup from "@/components/popup/LoginPopup.vue";
+import MyBlog from "@/components/blog/MyBlog.vue";
 
 const { memberData } = storeToRefs(sportStore());
 const router = useRouter();
 const loginRef = ref(false);
+const myBlogRef = ref(false);
 const props = defineProps({
   ctgy: String,
 });
@@ -70,11 +73,16 @@ const onClick = (value) => {
   }
 };
 
+const myBlogDialog = () => {
+  myBlogRef.value = true;
+};
+
 const open = () => {
   loginRef.value = true;
 };
 const close = () => {
   loginRef.value = false;
+  myBlogRef.value = false;
 };
 
 function onClose() {

@@ -92,19 +92,23 @@ export const sportStore = defineStore(
       console.log(params);
 
       axios
-        .post("/loginMemberCheck", params)
+        .post("/member/signUp", params)
         .then((response) => {
           console.log("response ::::::::", response);
           console.log("성공");
 
-          localStorage.setItem(
-            "memdata",
-            JSON.stringify(response.data.memberData)
-          );
-          // JSON.parse(localStorage.getItem("memdata"));
-
-          memberData.value = JSON.parse(localStorage.getItem("memdata"));
-          userNm.value = memberData.value.userNm;
+          if (response.data.status !== 200) {
+            alert("회원정보가 없습니다.");
+            return false;
+          } else {
+            localStorage.setItem(
+              "memdata",
+              JSON.stringify(response.data.memberData)
+            );
+            JSON.parse(localStorage.getItem("memdata"));
+            memberData.value = JSON.parse(localStorage.getItem("memdata"));
+            userNm.value = memberData.value.userNm;
+          }
         })
         .catch((error) => {
           console.log("error :::::: ", error);
@@ -118,12 +122,15 @@ export const sportStore = defineStore(
     const blogTabData = ref({});
     const menuTabData = () => {
       axios
-        .post("menuListData")
+        .post("menu/tabList")
         .then((response) => {
-          menuTab.value = response.data;
+          console.log("menuTabList :::::", response);
 
-          sportTabData.value = menuTab.value[0];
-          blogTabData.value = menuTab.value[1];
+          if (response.data.statusCode === 200) {
+            menuTab.value = response.data.data;
+            sportTabData.value = menuTab.value[0];
+            blogTabData.value = menuTab.value[1];
+          }
         })
         .catch((error) => {
           console.log(error);
