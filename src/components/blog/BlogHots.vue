@@ -35,7 +35,9 @@
       </VRow>
     </v-container>
   </div>
-  <div style="height: 50px; background-color: lightgray"></div>
+  <div style="height: 50px; background-color: lightgray; text-align: center">
+    광고
+  </div>
   <div>
     <span
       style="display: flex; font-size: 13px; padding: 10px; padding-left: 18px"

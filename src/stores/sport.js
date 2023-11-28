@@ -97,16 +97,16 @@ export const sportStore = defineStore(
           console.log("response ::::::::", response);
           console.log("성공");
 
-          if (response.data.status !== 200) {
+          if (response.data.statusCode !== 200) {
             alert("회원정보가 없습니다.");
             return false;
           } else {
             localStorage.setItem(
-              "memdata",
-              JSON.stringify(response.data.memberData)
+              "memberInfo",
+              JSON.stringify(response.data.data)
             );
-            JSON.parse(localStorage.getItem("memdata"));
-            memberData.value = JSON.parse(localStorage.getItem("memdata"));
+            JSON.parse(localStorage.getItem("memberInfo"));
+            memberData.value = JSON.parse(localStorage.getItem("memberInfo"));
             userNm.value = memberData.value.userNm;
           }
         })
@@ -116,7 +116,6 @@ export const sportStore = defineStore(
         });
     };
 
-    // const memberData = computed(() => (memData.value ? memData.value : ""));
     const menuTab = ref([]);
     const sportTabData = ref({});
     const blogTabData = ref({});

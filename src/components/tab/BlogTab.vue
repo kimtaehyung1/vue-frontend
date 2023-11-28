@@ -21,7 +21,7 @@ const router = useRouter();
 const onClick = (target) => {
   switch (target) {
     case "home":
-      router.push("/");
+      router.back();
       break;
     case "neighbor":
       router.push({

@@ -2,13 +2,17 @@
   <v-container>
     <v-form @submit.prevent="submit" ref="form">
       <v-row>
-        <v-col @click="onClose">
-          <v-btn style="box-shadow: none"><v-icon>mdi-close</v-icon></v-btn>
+        <v-col @click="onClose" style="padding-left: 0px">
+          <v-btn style="box-shadow: none; padding-left: 0px"
+            ><v-icon>mdi-close</v-icon></v-btn
+          >
         </v-col>
         <v-col></v-col>
         <v-col></v-col>
         <v-col style="float: right">
-          <v-btn style="box-shadow: none" type="submit">등록</v-btn>
+          <v-btn style="box-shadow: none; padding-right: 0px" type="submit"
+            >등록</v-btn
+          >
         </v-col>
       </v-row>
       <v-row>
@@ -16,26 +20,28 @@
         <v-col></v-col>
       </v-row>
       <v-row>
-        <v-list-subheader style="padding-left: 10px">제목</v-list-subheader>
+        <v-list-subheader style="padding-left: 20px">제목</v-list-subheader>
       </v-row>
       <v-col>
         <v-text-field required v-model="title"> </v-text-field>
       </v-col>
       <v-row>
-        <v-list-subheader style="padding-left: 10px">내용</v-list-subheader>
+        <v-list-subheader style="padding-left: 20px">내용</v-list-subheader>
       </v-row>
       <v-col>
         <v-textarea required v-model="content" auto-grow> </v-textarea
       ></v-col>
 
       <v-row>
-        <v-col style="padding-bottom: 0px">
+        <v-col style="padding-bottom: 0px; padding-left: 20px">
           <v-list-subheader> 공개 </v-list-subheader>
           <v-list-subheader>
             <pre style="font-size: x-small">{{ openBg }}</pre>
           </v-list-subheader>
         </v-col>
-        <v-col style="padding-top: 0px">
+      </v-row>
+      <v-row>
+        <v-col>
           <v-btn-toggle v-model="openBg" shaped mandatory>
             <v-btn class="btn" value="모든 사람이 이글을 볼 수 있습니다.">
               <span>전체</span>
@@ -82,7 +88,7 @@ const openBg = ref();
 const from = ref();
 
 const onClose = () => {
-  router.push("/");
+  router.back();
 };
 
 const submit = () => {

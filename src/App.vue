@@ -10,5 +10,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 800px;
+  border: 1px solid;
+  width: -webkit-fill-available;
 }
 </style>

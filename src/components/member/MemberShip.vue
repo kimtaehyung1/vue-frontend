@@ -18,16 +18,17 @@
               <div class="display">
                 <v-icon icon="mdi-account"></v-icon>
               </div>
-              <v-checkbox-btn
+              <v-checkbox
                 label="중복확인"
                 v-model="duplicate"
                 @click="checkDuplicate(userId)"
                 class="btn"
-              ></v-checkbox-btn>
+              ></v-checkbox>
               <v-text-field
                 v-model="userId"
                 label="아이디*"
                 :rules="userId_rules"
+                :focused="focus"
                 require
               >
               </v-text-field>
@@ -167,13 +168,14 @@ import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
 const state = ref("ins");
 const form = ref();
-const userId = ref("");
+const userId = ref();
 const userNo = ref();
 const password = ref("");
 const password_chk = ref("");
 
 const gender = ref(0);
 const foreigner = ref(0);
+const focus = ref(false);
 
 const email = ref();
 const phone = ref();
@@ -184,20 +186,31 @@ const duplicate = ref(false);
 const custom = ref(false);
 const result = ref();
 
-const checkDuplicate = (v) => {
+const checkDuplicate = (id) => {
+  const body = {
+    userId: id,
+  };
+
   if (!duplicate.value) {
     axios
-      .post(`duplicationCheck?userId=${v}`)
+      .post(`/member/duplication?userId=${id}`, body)
       .then((response) => {
         console.log("response", response);
-        result.value = response.data.result;
+        result.value = response.data.data;
 
-        if (result.value === "true") {
+        if (result.value !== null) {
           alert("[중복아이디] 사용할 수 없는 아이디 입니다.");
           duplicate.value = false;
+          focus.value = true;
+          userId.value = "";
         } else {
-          alert("사용가능한 아이디 입니다.");
-          duplicate.value = false;
+          if (id === "" || id === undefined || id === null) {
+            alert("아이디를 입력해주세요");
+            duplicate.value = false;
+          } else {
+            alert("사용가능한 아이디 입니다.");
+            duplicate.value = false;
+          }
         }
       })
       .catch((error) => {
@@ -256,7 +269,7 @@ const submit = () => {
 
   console.log("submit ==>", result.value);
 
-  if (result.value === "true") {
+  if (result.value === undefined) {
     alert("[중복아이디] 를 확인해주세요");
     return false;
   }
@@ -267,10 +280,10 @@ const submit = () => {
       userId: userId.value,
       userNm: userNm.value,
       password: password.value,
-      regr: userNm.value,
-      reg_date: currentDate.value,
-      mod_date: currentDate.value,
-      modr: userNm.value,
+      regNm: userNm.value,
+      regDate: currentDate.value,
+      modDate: currentDate.value,
+      modNm: userNm.value,
       gender: gender.value,
       foreigner: foreigner.value,
       email: email.value,
@@ -278,16 +291,16 @@ const submit = () => {
       birthday: birthday.value.replace(/-/gi, ""),
     };
     console.log("param :::::::::::", param);
-    // axios
-    //   .post("/insertMemberInfo", param)
-    //   .then(() => {
-    //     console.log("성공");
-    //     router.push("/");
-    //     initParam();
-    //   })
-    //   .catch((error) => {
-    //     console.log("error", error);
-    //   });
+    axios
+      .post("/member/insertMemberInfo", param)
+      .then(() => {
+        console.log("성공");
+        router.back();
+        initParam();
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   } else {
     alert("회원가입절차를 확인해주세요. ");
     return false;
@@ -308,6 +321,6 @@ const initParam = () => {
 };
 
 const onClose = () => {
-  router.push("/");
+  router.back();
 };
 </script>

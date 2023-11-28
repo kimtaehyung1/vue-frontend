@@ -7,6 +7,10 @@ import BlogHots from "@/components/blog/BlogHots.vue";
 import WriteBlog from "@/components/blog/WriteBlog.vue";
 import SportNews from "@/components/sport/SportNews.vue";
 import MemberShip from "@/components/member/MemberShip.vue";
+import CharacterSetting from "@/components/member/CharacterSetting.vue";
+import MyInfo from "@/components/member/MyInfo.vue";
+
+const member = "/member";
 
 const routes = [
   {
@@ -23,6 +27,11 @@ const routes = [
     path: "/blog/:ctgy",
     name: "blog",
     component: Blog,
+  },
+  {
+    path: "/member",
+    name: "member",
+    component: MyInfo,
   },
   {
     path: "/blog/blg001/neighbor/:ctgy",
@@ -43,6 +52,11 @@ const routes = [
     path: "/membership",
     name: "membership",
     component: MemberShip,
+  },
+  {
+    path: "/member/characterSetting",
+    name: "characterSetting",
+    component: CharacterSetting,
   },
   {
     path: "/sportNews",

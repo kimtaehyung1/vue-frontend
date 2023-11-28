@@ -35,7 +35,7 @@
               </v-col>
             </v-row>
           </v-container>
-          <div style="position: fixed">
+          <div style="position: fixed; padding: 15px">
             <div style="text-align: center">
               <div style="float: left">
                 <v-btn variant="text"> 아이디찾기 </v-btn>

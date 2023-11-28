@@ -20,14 +20,20 @@
         </v-btn>
       </div>
 
-      <v-btn icon @click="myBlogDialog">
+      <!-- 로그인 후 -->
+      <v-btn icon v-if="memberData !== undefined" @click="myInfoDialog">
         <v-icon>mdi-alpha-m-box</v-icon>
+      </v-btn>
+
+      <!-- 로그인 전 -->
+      <v-btn icon v-else @click="myInfoDialog">
+        <v-icon>mdi-alpha-m-box-outline</v-icon>
       </v-btn>
       <br /><br />
     </v-toolbar>
   </div>
   <LoginPopup v-model="loginRef" @onClose="onClose" />
-  <MyBlog v-model="myBlogRef" @onClose="onClose" />
+  <!-- <MyInfo v-model="myInfoRef" @onClose="onClose" /> -->
 </template>
 
 <style>
@@ -42,12 +48,12 @@ import { useRouter } from "vue-router";
 import { sportStore } from "@/stores/sport";
 import { storeToRefs } from "pinia";
 import LoginPopup from "@/components/popup/LoginPopup.vue";
-import MyBlog from "@/components/blog/MyBlog.vue";
+import MyInfo from "@/components/member/MyInfo.vue";
 
 const { memberData } = storeToRefs(sportStore());
 const router = useRouter();
 const loginRef = ref(false);
-const myBlogRef = ref(false);
+const myInfoRef = ref(false);
 const props = defineProps({
   ctgy: String,
 });
@@ -58,14 +64,18 @@ const loginPopup = () => {
 };
 
 const logout = () => {
-  localStorage.clear();
-  location.reload();
+  if (confirm("로그아웃 하시겠습니까?")) {
+    localStorage.clear();
+    location.reload();
+  } else {
+    console.log("취소");
+  }
 };
 
 const onClick = (value) => {
   switch (value) {
     case "home":
-      router.push("/");
+      router.back();
       break;
 
     default:
@@ -73,8 +83,16 @@ const onClick = (value) => {
   }
 };
 
-const myBlogDialog = () => {
-  myBlogRef.value = true;
+onMounted(() => {
+  console.log("memberData", memberData.value);
+});
+
+const myInfoDialog = () => {
+  if (memberData.value !== undefined) {
+    router.push("/member");
+  } else {
+    loginRef.value = true;
+  }
 };
 
 const open = () => {
@@ -82,7 +100,7 @@ const open = () => {
 };
 const close = () => {
   loginRef.value = false;
-  myBlogRef.value = false;
+  myInfoRef.value = false;
 };
 
 function onClose() {
